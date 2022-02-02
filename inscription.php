@@ -1,9 +1,9 @@
 
-// portail d'inscription
+//portail d'inscription
 //contiendra un formulaire d'inscription, qui activera le fichier inscrip.php lors de l'envoie des données
 
 <?php session_start(); ?>
-
+<?php	require_once('MenuNonConnecte.php'); ?>
 <?php include('bdd.php'); ?>
 
      <section class="hero is-info is-small is-bold">

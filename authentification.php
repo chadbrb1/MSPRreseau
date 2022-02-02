@@ -1,10 +1,9 @@
 
 // portail d'auhtentification
-
-//contiendra un formulaire de connexion, qui activera le fichier authent.php lors de l'envoie des données
+/*contiendra un formulaire de connexion, qui activera le fichier authent.php lors de l'envoie des données*/
 
 <?php session_start(); ?>
-
+<?php	require_once('MenuNonConnecte.php'); ?>
 <?php	require_once('bdd.php'); ?>
 
 
