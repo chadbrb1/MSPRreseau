@@ -1,6 +1,6 @@
 <?php
 try{
-    $dbco = new PDO('mysql:host=localhost; dbname=mspr', 'root', '') ;
+    $dbco = new PDO('mysql:host=localhost; dbname=mspr', 'root', 'root') ;
     $dbco -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 

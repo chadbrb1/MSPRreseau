@@ -1,38 +1,56 @@
-
-<?php include('conf.php') ?>
 <?php session_start(); ?>
 
+<?php include('conf.php'); ?>
+
 <?php
-if (isset($_SESSION['id']))
+$dbco = new PDO('mysql:host=localhost; dbname=mspr', 'root', 'root');
+$email=$_POST['email'];
+$mdp=$_POST['password'];
+
+$req = $dbco->prepare('SELECT id,nom,prenom,email,mdp,profession FROM soignant WHERE email = :email');
+$req->execute(array(
+    'email' => $email));
+$resultat = $req->fetch();
+
+if ($mdp == $resultat['mdp'])
 {
-    f_redirection('serveur.php');
+    $test = true ;
 }
-else  f_redirection('serveur.php');
 
-
-
-if (isset($_POST['submit']))
+else
 {
-    if(!empty($_POST['email'] && !empty($_POST['password'])))
+    $test = false ;
+}
+
+echo $test;
+if (!$resultat)
+{
+    echo 'Mauvais identifiant ou mot de passe 1111 !';
+
+}
+else
+{
+    if ($test == 1) {
+        $_SESSION['id'] = $resultat['id'];
+        $_SESSION['email'] = $email;
+        $_SESSION['mdp'] = $resultat['mdp'];
+
+
+
+
+        f_redirection('serveur.php');
+
+    }
+    else
     {
-        $_POST['email'] = htmlentities($_POST['email'], ENT_QUOTES);
-        $_POST['password'] = htmlentities($_POST['password'], ENT_QUOTES);
-        $sql = "SELECT * FROM soignant WHERE email = '".$_POST['email']."'" ;
-        $req = $dbco-> query(sql) or die ("Erreur SQL") ;
-        $data = $req -> fetch() ;
-        if (!empty($data['email']))
-        {
-            $_POST['password'] = md5( $_POST['password']);
-            if($data['password'] ==  $_POST['password'])
-            {
-                S_SESSION['email'] =  $_POST['login'];
-                S_SESSION['password'] =  $_POST['password'];
+        echo 'Mauvais identifiant ou mot de passe 2222 !!!';
 
-                header("Location : serveur.php" );
-            }
-            else echo 'mot de passe incorrect';
-        }else echo 'mot de passe incorrect';
-    }else echo 'Login ou mot de passe incorrect';
+    }
 }
-
 ?>
+
+
+
+
+
+
