@@ -29,9 +29,7 @@
             </div>
             <div id="navbarMenu" class="navbar-menu">
                 <div class="navbar-end">
-                    <a class="navbar-item is-active" href="index.php">
-                            Accueil
-                        </a>
+
                       
                     
                     <div class="navbar-item has-dropdown is-hoverable">

@@ -9,7 +9,7 @@
      <section class="hero is-info is-small is-bold">
         <div class="hero-body">
             <div class="container has-text-centered">
-                <h1 class="title">Bienvenue, vous pouvez vous inscire : </h1>
+                <h1 class="title">Bienvenue, vous pouvez vous inscrire : </h1>
 
             </div>
         </div>
@@ -32,10 +32,7 @@
   </div>
 </div>
 
-<div class="field">
-  <label class="label">Nom d'utilisateur</label>
-    <input class="input is-info" type="text" name = "nomUtilisateur" placeholder="VoldemortDu79" required>
-</div>
+
 
                         			<label class="label">Quelle est votre date de naissance ?</label>
                         <div class="columns">
@@ -202,44 +199,18 @@
 </div>
 
 
+    <div class="field">
+        <label class="label">Profession</label>
+        <div class="control">
+            <input class="input is-info" type="text" name ="prenom" placeholder="Medecin Généraliste, Gynécologue,..." required>
+        </div>
+    </div>
 <div class="control">
 
 
 
 
-  <div class="field has-addons">
-          <div class="control is-expanded">
-            <div class="select is-fullwidth">
-              <select id="soflow" class="is-size-6" name="statut">
-                  <?php
 
-                  //requ�te pour aller chercher ds la bdd la liste des types de panneau
-                  $sql = $dbco ->query('SELECT * FROM statut_utilisateur');
-
-                  while($donnees = $sql->fetch()) {
-
-                  ?>
-
-
-                  <option value="<?php echo $donnees['Id_Statut']; ?>"><?php echo $donnees['Statut_Type'];  ?></option>
-
-                  <?php
-
-                  }
-                  $sql->closeCursor();
-
-                  ?>
-              </select>
-            </div>
-          </div>
-
-        </div>
-
-
-
-
-  </br> </br>
-</div>
 
 <div class="field">
   <p class="control">
