@@ -1,3 +1,71 @@
+<?php session_start(); ?>
+<?php include('conf.php'); ?>
+
+<?php
+error_reporting(E_ALL & ~E_NOTICE);
+/*
+if ($_POST['submit']) {
+    $erreur = 'r';
+    $email = $_POST['email'];
+    $mdp = $_POST['password'];
+
+    $sql = 'SELECT id,nom,prenom,email,mdp,profession FROM soignant WHERE email = :email';
+    $query = mysqli_query($dbco, $sql);
+     echo$query ;
+    if ($query) {
+        $row = mysqli_fetch_row($query);
+        $userId = $row[0];
+        $dbemail = $row[3];
+        $dbPassword = $row[4];
+    }
+
+    if ($email == $dbemail && $mdp == $dbPassword) {
+        $_SESSION['email'] = $email;
+        $_SESSION['id'] = $userId;
+        header('Location: serveur.php');
+    } else {
+        $erreur = "Identifiant ou mot de passe incorrect !";
+    }
+}
+*/
+if ($_POST['submit']) {
+$email = $_POST['email'];
+$mdp = $_POST['password'];
+
+$req = $dbco->prepare('SELECT id,nom,prenom,email,mdp,profession FROM soignant WHERE email = :email');
+$req->execute(array(
+'email' => $email));
+$resultat = $req->fetch();
+
+if ($mdp == $resultat['mdp']) {
+$test = true;
+} else {
+$test = false;
+}
+
+
+if (!$resultat) {
+$erreur = 'Mauvais identifiant ou mot de passe 1111 !';
+
+} else {
+if ($test == 1) {
+$_SESSION['id'] = $resultat['id'];
+$_SESSION['email'] = $email;
+$_SESSION['mdp'] = $resultat['mdp'];
+
+
+f_redirection('serveur.php');
+
+} else {
+$erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
+
+}
+}
+
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html>
@@ -71,7 +139,7 @@
 
 <div class="column is-5 is-offset-3">
 
-    <form method ="post" action ="authent.php">
+    <form method ="post" action ="authentification.php">
 
         <div class="field">
             <label class="Email">Email</label>
@@ -82,6 +150,8 @@
             <label class="Password">Mot de Passe</label>
             <input class="input is-info" type="password" name ="password" id ="password" placeholder="Password">
         </div>
+
+        <?php echo $erreur; ?>
         <div class="field">
             <p class="control">
                 <button class="button is-info" type ="submit" name ="submit">
