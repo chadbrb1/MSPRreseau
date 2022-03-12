@@ -7,10 +7,10 @@ $mdp=$_POST['password'];
 $mdp2=$_POST['password2'];
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
-$nomUtilisateur = $_POST['nomUtilisateur'];
 $profession = $_POST['profession'];
 $statut = $_POST['statut'];
 
+echo $email." / ".$mdp." / ".$mdp2." / ".$nom." / ".$prenom." / "." / ".$profession." / ".$statut ;
 /* new date time */
 //try{
 // $dbco = new PDO('mysql:host=localhost; dbname=gather', 'root', rootpass());
@@ -22,10 +22,6 @@ $req->execute(array(
 $resultat = $req->fetch();
 
 
-$req2 = $dbco->prepare('SELECT id FROM utilisateur WHERE nomUtilisateur = :nomUtilisateur');
-$req2->execute(array(
-    'nomUtilisateur' => $nomUtilisateur));
-$resultat2 = $req2->fetch();
 
 if ($resultat)
 {
@@ -35,13 +31,6 @@ if ($resultat)
 
 else
 {
-    if ($resultat2)
-    {
-        echo 'ce pseudo est deja pris';
-        f_redirection('inscription.php',2);
-    }
-
-
 
     if ($mdp != $mdp2)
     {
@@ -53,14 +42,27 @@ else
 
         $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = $dbco->prepare('INSERT INTO utilisateur(email,mdp,nom,prenom,nomUtilisateur,datenaissance,statut, dateInscription)
-                                    VALUES(:email, :mdp, :nom, :prenom, :nomUtilisateur, :datenaissance, :statut, :dateInscription)');
-        $sql ->execute(array('email' => $email,'mdp' =>  $pass_hache, 'nom' => $nom, 'prenom' => $prenom, 'nomUtilisateur' => $nomUtilisateur, 'datenaissance' =>$datenaissance, 'statut' => $statut, 'dateInscription' => $dateInscription)) ;
+        $sql = $dbco->prepare('INSERT INTO soignant(nom,prenom,email,mdp,profession)
+                                    VALUES(:nom, :prenom, :email, :mdp, :profession)');
+        $sql ->execute(array('nom' => $nom, 'prenom' => $prenom,'mdp' =>  $mdp, 'email' => $email, 'profession' =>$profession)) ;
 
+        $toEmail = $email;
+        $mailHeaders = "From: Administrateur MSPR " . "<". $email .">\r\n";
+        $url = "http://localhost:8888/php/MSPRreseau/pages/authentification.php";
+        $message = "Vous avez été inscris. Voici vos information de connexion : "."<br>Nom : ".";<br> Email : ".$email.";<br> Mot de passe :".$mdp."<br>Veuillez l'inscrire sur <a href='".$url."'>ce formulaire </a>";
+        $subject = $message;
+        if(mail($toEmail, $subject, $message, $mailHeaders)) {
+            $mail_msg = "Votre confirmation d'inscrition pour ".$toEmail." a bien été envoyée.<br>Merci ";
+            $type_mail_msg = "success";
+            echo $mail_msg;
+        }else{
+            $mail_msg = "Erreur lors de l'envoi de l'e-mail.";
+            $type_mail_msg = "error";
+            echo $mail_msg;
 
-
-        f_redirection('connexion.php');
-    }
+        }
+        f_redirection('authentification.php',5);
+}
 
 
 }

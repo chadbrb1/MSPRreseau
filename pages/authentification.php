@@ -2,8 +2,9 @@
 <?php include('conf.php'); ?>
 
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
 /*
+error_reporting(E_ALL & ~E_NOTICE);
+
 if ($_POST['submit']) {
     $erreur = 'r';
     $email = $_POST['email'];
@@ -28,7 +29,7 @@ if ($_POST['submit']) {
     }
 }
 */
-if ($_POST['submit']) {
+/*if ($_POST['submit']) {
 $email = $_POST['email'];
 $mdp = $_POST['password'];
 
@@ -63,7 +64,7 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
 }
 
 }
-
+*/
 ?>
 
 
@@ -109,7 +110,7 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
                         <a class="navbar-item" href ="authentification.php">
                             Connexion
                         </a>
-                        <a class="navbar-item" href="inscription.php">
+                        <a class="navbar-item" href="inscriptionDemandeur.php">
                             Inscription
                         </a>
                         <hr class="navbar-divider">
@@ -139,7 +140,7 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
 
 <div class="column is-5 is-offset-3">
 
-    <form method ="post" action ="authentification.php">
+    <form method ="post" action ="authent.php">
 
         <div class="field">
             <label class="Email">Email</label>
@@ -151,7 +152,7 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
             <input class="input is-info" type="password" name ="password" id ="password" placeholder="Password">
         </div>
 
-        <?php echo $erreur; ?>
+
         <div class="field">
             <p class="control">
                 <button class="button is-info" type ="submit" name ="submit">

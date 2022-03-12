@@ -3,6 +3,15 @@
 <?php include('conf.php'); ?>
 
 <?php
+if ($_SESSION['id'] == "") {
+    f_redirection('authentification.php');
+}
+
+
+?>
+<?php
+
+
 $dbco = new PDO('mysql:host=localhost; dbname=mspr', 'root', 'root');
 $email=$_POST['email'];
 $mdp=$_POST['password'];
@@ -35,6 +44,10 @@ else
         $_SESSION['email'] = $email;
         $_SESSION['mdp'] = $resultat['mdp'];
 
+        if ( $email == "msprreseautest1@gmail.com")
+        {
+            f_redirection('inscription.php');
+        }
 
 
 
@@ -46,6 +59,8 @@ else
         echo 'Mauvais identifiant ou mot de passe 2222 !!!';
 
     }
+
+
 }
 ?>
 
