@@ -67,7 +67,7 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
 */
  /*
  *
- * METTRE LE SCRIPT ANTI-BRUT FORCE ICI
+ * Anti-brut force ici :
  * LIEN : https://phpsources.net/code/php/securite/658_systeme-de-connexion-de-membres-avec-securitecontre-le-vol-de-cookies-et-bruteforce
  *
  *
