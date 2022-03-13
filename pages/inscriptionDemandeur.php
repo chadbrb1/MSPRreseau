@@ -1,11 +1,11 @@
 <?php session_start(); ?>
 
-<?php	require_once('MenuNonConnecte.php'); ?>
+
 
 <?php include('conf.php');
 ?>
 
-
+<?php	require_once('MenuNonConnecte.php'); ?>
 <section class="hero is-info is-small is-bold">
     <div class="hero-body">
         <div class="container has-text-centered">

@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 
-<?php	require_once('MenuNonConnecte.php'); ?>
+<?php	require_once('MenuConnecte.php'); ?>
 
 <?php include('conf.php'); ?>
 
@@ -50,6 +50,13 @@
                 <label class="label">Confirmation mot de Passe</label>
                 <input class="input is-info" type="password" name = "password2" placeholder="Password" required>
             </div>
+
+        <div class="field">
+            <label class="label">Navigateur web</label>
+            <div class="control">
+                <input class="input is-info" type="text" name = "navigateur" placeholder="Safari" required>
+            </div>
+        </div>
 
 
 

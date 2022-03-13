@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php include('conf.php'); ?>
+<?php include('pages/conf.php'); ?>
 
 <?php
 /*
@@ -75,7 +75,7 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gather</title>
+    <title>MSPR</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/css/OverlayScrollbars.min.css'>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -88,38 +88,25 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
 <!-- START NAV -->
 <nav class="navbar">
     <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="index.php">
-            </a>
-            <span class="navbar-burger burger" data-target="navbarMenu">
-                        <span></span>
-                <span></span>
-                <span></span>
-                </span>
-        </div>
+
         <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
-
-
 
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link" >
                         Compte
                     </a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href ="authentification.php">
+                        <a class="navbar-item" href ="index.php">
                             Connexion
                         </a>
-                        <a class="navbar-item" href="inscriptionDemandeur.php">
+                        <a class="navbar-item" href="pages/inscriptionDemandeur.php">
                             Inscription
                         </a>
                         <hr class="navbar-divider">
                         <a class="navbar-item" href = "mentions.php">
                             Mentions Légales
                         </a>
-
-
-
                     </div>
                 </div>
 
@@ -140,7 +127,7 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
 
 <div class="column is-5 is-offset-3">
 
-    <form method ="post" action ="authent.php">
+    <form method ="post" action ="pages/authent.php">
 
         <div class="field">
             <label class="Email">Email</label>

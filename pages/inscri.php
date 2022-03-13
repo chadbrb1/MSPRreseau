@@ -9,8 +9,9 @@ $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $profession = $_POST['profession'];
 $statut = $_POST['statut'];
+$navigateur = $_POST['navigateur'];
 
-echo $email." / ".$mdp." / ".$mdp2." / ".$nom." / ".$prenom." / "." / ".$profession." / ".$statut ;
+
 /* new date time */
 //try{
 // $dbco = new PDO('mysql:host=localhost; dbname=gather', 'root', rootpass());
@@ -39,16 +40,18 @@ else
     }
     else
     {
+        $pass_hache = password_hash($mdp, PASSWORD_DEFAULT);
 
         $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = $dbco->prepare('INSERT INTO soignant(nom,prenom,email,mdp,profession)
-                                    VALUES(:nom, :prenom, :email, :mdp, :profession)');
-        $sql ->execute(array('nom' => $nom, 'prenom' => $prenom,'mdp' =>  $mdp, 'email' => $email, 'profession' =>$profession)) ;
+        $sql = $dbco->prepare('INSERT INTO soignant(nom,prenom,email,mdp,profession,navigateur)
+                                    VALUES(:nom, :prenom, :email, :mdp, :profession, :navigateur)');
+        $sql ->execute(array('nom' => $nom, 'prenom' => $prenom, 'email' => $email,'mdp' =>  $pass_hache, 'profession' =>$profession, 'navigateur', $navigateur)) ;
 
         $toEmail = $email;
-        $mailHeaders = "From: Administrateur MSPR " . "<". $email .">\r\n";
-        $url = "http://localhost:8888/php/MSPRreseau/pages/authentification.php";
+        $admin = "msprreseautest1@gmail.com";
+        $mailHeaders = "From: Administrateur MSPR " . "<". $admin .">\r\n";
+        $url = "http://localhost:8888/php/MSPRreseau/pages/index.php";
         $message = "Vous avez été inscris. Voici vos information de connexion : "."<br>Nom : ".";<br> Email : ".$email.";<br> Mot de passe :".$mdp."<br>Veuillez l'inscrire sur <a href='".$url."'>ce formulaire </a>";
         $subject = $message;
         if(mail($toEmail, $subject, $message, $mailHeaders)) {
@@ -61,7 +64,7 @@ else
             echo $mail_msg;
 
         }
-        f_redirection('authentification.php',5);
+        f_redirection('../index.php',5);
 }
 
 
