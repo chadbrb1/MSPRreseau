@@ -65,6 +65,23 @@ $erreur = 'Mauvais identifiant ou mot de passe 2222 !!!';
 
 }
 */
+ /*
+ *
+ * METTRE LE SCRIPT ANTI-BRUT FORCE ICI
+ * LIEN : https://phpsources.net/code/php/securite/658_systeme-de-connexion-de-membres-avec-securitecontre-le-vol-de-cookies-et-bruteforce
+ *
+ *
+ *
+ * Mettre aussi un bloqueur d'adresse IP
+ * LIEN : https://phpsources.net/code/php/securite/630_bloquer-des-adresses-ip-indesirables
+ *
+ *
+ *
+ * Rendre invisible les adresses mails :
+ * LIEN : https://phpsources.net/code/php/securite/532_php-javascript-protection-des-adresses-email
+ *
+ */
+
 ?>
 
 
