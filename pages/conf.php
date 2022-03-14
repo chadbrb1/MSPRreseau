@@ -43,13 +43,13 @@ function get_ip_é() {
     return $add;
 }
 
-function mailing_validation($toEmail)
+function mailing_validation($toEmail,$ip)
 {
 
     $adresse = "http://localhost:8888/php/MSPRreseau/pages/validationAuthent.php";
     $subject = "Connexion sur un navigateur inconnu ! ";
     $admin = "msprreseautest1@gmail.com";
-    $message = "Une tentative de connexion a eu lieu sur un navigateur inconnu. <br> Veuillez effectuer une vérification à l'adresse suivante : <br> ".$adresse;
+    $message = "Une tentative de connexion a eu lieu sur un navigateur inconnu, avec cette adresse ip : ".$ip." <br> Veuillez effectuer une vérification à l'adresse suivante : <br> ".$adresse;
     $mailHeaders = "From: Administrateur MSPR " . "<". $admin .">\r\n";
     mail($toEmail, $subject, $message, $mailHeaders);
 
@@ -58,20 +58,13 @@ function mailing_validation($toEmail)
 function read_ipFile($ip_file,$ip)
 {
 
-    // Nom du fichier à ouvrir
-    $fichier = file($ip_file);
-    // Nombre total de ligne du fichier
-    $total = count($fichier);
-    $present = 0;
-
-    for ($i = 0; $i < $total; $i++) {
-        // On cherche ligne par ligne dans le fichier si notre adresse ip y est
-        // avec la fonction nl2br pour ajouter les sauts de lignes
-        if ($fichier[$i] == $ip) {
-            return 1;
-        } else {
-            return 0;
-        }
+    if (array_search($ip, $ip_file) !== FALSE) {
+        echo "Votre adresse ip est bannie de notre site, vous ne pouvez plus y acceder";
+        f_redirection('../index.php',5);
+    }
+    else
+    {
+        return 0;
     }
 }
 function write_ipFile($ip_file,$ip)
@@ -91,14 +84,48 @@ function write_ipFile($ip_file,$ip)
 
 
 }
-?>
 
+function Recherche($szFichier , $arszChercherChaine){
+    $iNbCharChercher = count($arszChercherChaine);
 
+    $szOutPut = implode("", file($szFichier));
 
+    $iNbCharFichier = strlen($szOutPut);
 
+    $arszTempChaine = array();
 
+    $iCalcule = 0;
+
+    $arszBidon = array();
+
+    for ( $i = 0; $i < $iNbCharFichier; $i++)
+    {
+        if ($szOutPut[$i] == $arszChercherChaine[0])
+        {
+            for ($j = 0; $j < $iNbCharChercher; $j++)
+            {
+                $arszTempChaine[$j] = $szOutPut[$i];
+                $i++;
+
+                if ($arszChercherChaine == $arszTempChaine)
+                {
+                    $iCalcule++;
+                }
+            }
+
+            $arszTempChaine = $arszBidon;
+
+        }
+    }
+
+    return $iCalcule;
 }
-
-
-
 ?>
+
+
+
+
+
+
+
+

@@ -2,7 +2,11 @@
 
 <?php include('conf.php'); ?>
 
+<?php
 
+$ip = isset($_SERVER['REMOTE_ADDR']) ? trim($_SERVER['REMOTE_ADDR']) : '';
+$ban = read_ipFile("ipBan.txt",$ip);
+?>
 <?php
 
 
@@ -35,7 +39,7 @@ else
 {
     if ($test == 1) {
 
-
+    echo $navigateurCourant;
         if ($resultat['navigateur'] == $navigateurCourant)
         {
             $_SESSION['id'] = $resultat['id'];
@@ -50,12 +54,17 @@ else
         }
         else
         {
-            mailing_validation($email);
-            $req2 = $dbco->prepare('Update soignant SET temp_navigateur = :navigateurCourant WHERE email = :email');
-            $req2->execute(array(
-                'temp_navigateur' => $navigateurCourant,
-                'email' => $email));
-            $resultat2 = $req2->fetch();
+
+            mailing_validation($email,$ip);
+            $sql = "UPDATE soignant SET temp_navigateur='".$navigateurCourant."' WHERE email='".$email."'";
+            $stmt = $dbco->prepare($sql);
+            $stmt->execute();
+            $sql2 = "UPDATE soignant SET ipAdressBan='".$ip."' WHERE email='".$email."'";
+            $stm2t = $dbco->prepare($sql2);
+            $stm2t->execute();
+            // execute the query
+            // execute the query
+            $stmt->execute();
         }
 
 
@@ -69,12 +78,6 @@ else
 
 }
 
-
-
-
-if ($_SESSION['id'] == "") {
-    f_redirection('../index.php');
-}
 
 
 ?>
